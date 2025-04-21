@@ -1,6 +1,7 @@
-﻿namespace Blogging_Platform.DTO
+﻿using System;
+
+namespace Blogging_Platform.DTO
 {
-    public class PostDto
-    {
-    }
+    public record PostDto(Guid Id, string Title, string Content);
+
 }

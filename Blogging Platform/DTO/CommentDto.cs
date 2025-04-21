@@ -1,6 +1,6 @@
-﻿namespace Blogging_Platform.DTO
+﻿using System;
+
+namespace Blogging_Platform.DTO
 {
-    public class CommentDto
-    {
-    }
+    public record CommentDto(Guid PostId, string Author, string Text);
 }
