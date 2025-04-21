@@ -1,4 +1,3 @@
-// PostService/Program.cs
 using Blogging_Platform.DTO;
 using PostService.Services;
 
@@ -8,12 +7,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<IPostRepository, InMemoryPostRepository>();
 builder.Services.AddControllers();
 
-// Add CORS to allow the main project to call this service
+// Add CORS to allow any origin (replacing the previous policy)
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowMainApp",
         builder => builder
-            .WithOrigins("https://localhost:5001") // Main app URL
+            .AllowAnyOrigin()  // Updated to allow any origin
             .AllowAnyMethod()
             .AllowAnyHeader());
 });

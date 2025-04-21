@@ -1,6 +1,35 @@
+version: '3.8'
+
 services:
   postservice:
-    image: ${DOCKER_REGISTRY-}postservice
+    image: postservice
     build:
       context: .
-      dockerfile: PostService\Dockerfile
+      dockerfile: PostService/Dockerfile
+    ports:
+      - "6001:80"  # Changed from 8080 to 80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80  # Changed from 8080 to 80
+    networks:
+      - blog-network
+
+  commentservice:
+    image: commentservice
+    build:
+      context: .
+      dockerfile: CommentService/Dockerfile
+    ports:
+      - "6002:80"  # Changed from 8080 to 80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80  # Changed from 8080 to 80
+      - POST_SERVICE_URL=http://postservice:80  # Changed from 8080 to 80
+    depends_on:
+      - postservice
+    networks:
+      - blog-network
+
+networks:
+  blog-network:
+    driver: bridge
