@@ -1,0 +1,6 @@
+services:
+  postservice:
+    image: ${DOCKER_REGISTRY-}postservice
+    build:
+      context: .
+      dockerfile: PostService\Dockerfile
